@@ -50,7 +50,7 @@ if hiera('manage_rkhunter', 'true') != 'false' {
         hour => $hour,
         minute => $minute,
         weekday => $weekday,
-        environment => [ 'PATH=/sbin:/usr/sbin:/bin:/usr/bin', "MAILTO=${email}" ],
+        environment => [ 'PATH=/sbin:/usr/sbin:/usr/local/sbin:/bin:/usr/bin:/usr/local/bin', "MAILTO=${email}" ],
     }
 }
 }
