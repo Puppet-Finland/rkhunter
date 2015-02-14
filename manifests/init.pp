@@ -8,7 +8,8 @@
 #
 # == Parameters
 #
-# None at the moment
+# [*ensure*]
+#   Ensure that rkhunter is 'present' (default) or 'absent'.
 #
 # == Examples
 #
@@ -22,12 +23,17 @@
 #
 # BSD-license. See file LICENSE for details.
 #
-class rkhunter {
+class rkhunter
+(
+    $ensure = 'present'
+)
+{
 
 # Rationale for this is explained in init.pp of the sshd module
 if hiera('manage_rkhunter', 'true') != 'false' {
 
-    include rkhunter::install
-
+    class { 'rkhunter::install':
+        ensure => $ensure,
+    }
 }
 }

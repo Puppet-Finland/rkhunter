@@ -6,7 +6,7 @@
 #
 # == Parameters
 #
-# [*status*]
+# [*ensure*]
 #   Status of the cronjob. Valid values 'present' and 'absent'. Defaults to 
 #   'present'.
 # [*hour*]
@@ -29,7 +29,7 @@
 #
 class rkhunter::cron
 (
-    $status = 'present',
+    $ensure = 'present',
     $hour = '7',
     $minute = '00',
     $weekday = '*',
@@ -45,7 +45,7 @@ if hiera('manage_rkhunter', 'true') != 'false' {
     $cron_command = "rkhunter --update --nocolors > /dev/null && rkhunter --cronjob"
 
     cron { 'rkhunter-cron':
-        ensure => $status,
+        ensure => $ensure,
         command => $cron_command,
         user => root,
         hour => $hour,
