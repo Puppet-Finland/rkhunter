@@ -8,6 +8,8 @@
 #
 # == Parameters
 #
+# [*manage*]
+#   Manage rkhunter with Puppet. Valid values are 'yes' (default) and 'no'.
 # [*ensure*]
 #   Ensure that rkhunter is 'present' (default) or 'absent'.
 #
@@ -25,14 +27,14 @@
 #
 class rkhunter
 (
+    $manage = 'yes',
     $ensure = 'present'
 )
 {
 
-# Rationale for this is explained in init.pp of the sshd module
-if hiera('manage_rkhunter', 'true') != 'false' {
+if $manage == 'yes' {
 
-    class { 'rkhunter::install':
+    class { '::rkhunter::install':
         ensure => $ensure,
     }
 }

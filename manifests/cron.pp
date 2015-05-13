@@ -6,6 +6,9 @@
 #
 # == Parameters
 #
+# [*manage*]
+#   Manage rkhunter cronjob with Puppet. Valid values are 'yes' (default) and 
+#   'no'.
 # [*ensure*]
 #   Status of the cronjob. Valid values 'present' and 'absent'. Defaults to 
 #   'present'.
@@ -29,6 +32,7 @@
 #
 class rkhunter::cron
 (
+    $manage = 'yes',
     $ensure = 'present',
     $hour = '7',
     $minute = '00',
@@ -37,20 +41,19 @@ class rkhunter::cron
 )
 {
 
-# Rationale for this is explained in init.pp of the sshd module
-if hiera('manage_rkhunter', 'true') != 'false' {
+if $manage == 'yes' {
 
-    include rkhunter
+    include ::rkhunter
 
-    $cron_command = "rkhunter --update --nocolors > /dev/null && rkhunter --cronjob"
+    $cron_command = 'rkhunter --update --nocolors > /dev/null && rkhunter --cronjob'
 
     cron { 'rkhunter-cron':
-        ensure => $ensure,
-        command => $cron_command,
-        user => root,
-        hour => $hour,
-        minute => $minute,
-        weekday => $weekday,
+        ensure      => $ensure,
+        command     => $cron_command,
+        user        => root,
+        hour        => $hour,
+        minute      => $minute,
+        weekday     => $weekday,
         environment => [ 'PATH=/sbin:/usr/sbin:/usr/local/sbin:/bin:/usr/bin:/usr/local/bin', "MAILTO=${email}" ],
     }
 }

@@ -1,0 +1,11 @@
+{
+  "name": "puppetfinland-rkhunter",
+  "version": "0.2.1",
+  "author": "Puppet-Finland team",
+  "license": "BSD license",
+  "summary": "Setup rkhunter",
+  "source": "https://github.com/Puppet-Finland/rkhunter.git",
+  "project_page": "https://github.com/Puppet-Finland/rkhunter",
+  "dependencies": [
+  ]
+}

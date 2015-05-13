@@ -13,10 +13,10 @@ class rkhunter::params {
             $package_name = 'rkhunter'
         }
         'FreeBSD': {
-            $package_name = 'security/rkhunter'
+            $package_name = 'rkhunter'
         }
         default: {
-            $package_name = 'rkhunter'
+            fail("Unsupported operating system ${::osfamily}")
         }
     }
 }
